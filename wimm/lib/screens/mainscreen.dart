@@ -1,12 +1,14 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 ///external packages
-import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
+import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wimm/main.dart';
+import 'package:wimm/screens/ExpenseScreen.dart';
 //local packages
 import 'IncomeScreen.dart';
 import 'SettingsScreen.dart';
@@ -23,7 +25,8 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> screens = const [
     HomeScreen(),
     IncomeScreen(),
-    SettingsScreen(),
+    ExpenseScreen(),
+    BudgetScreen(),
   ];
   int selectedIndex = 0;
   late PageController pageController;
@@ -55,37 +58,56 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
+
       ),
       child: Scaffold(
         body: PageView(
           controller: pageController,
-          children: screens,
           onPageChanged: onPageChanged,
+          children: screens,
         ),
-        bottomNavigationBar: WaterDropNavBar(
-          waterDropColor: Colors.indigo,
-          selectedIndex: selectedIndex,
-          barItems: <BarItem>[
-            BarItem(
-              filledIcon: FontAwesomeIcons.houseUser,
-              outlinedIcon: Icons.home_outlined,
+        bottomNavigationBar: FloatingNavbar(
+          
+
+          ///////////////////////////
+          backgroundColor:     Color.fromARGB(82, 177, 177, 177),
+        selectedItemColor: themeProvider.currentTheme?.splashColor,
+        unselectedItemColor: themeProvider.currentTheme?. disabledColor,
+        selectedBackgroundColor: themeProvider.currentTheme?.indicatorColor,
+          
+          ///////////////
+          
+          currentIndex: selectedIndex,
+          onTap: onItemSelected,
+          items: [
+            FloatingNavbarItem(
+              icon: FontAwesomeIcons.houseUser,
+              title: 'Home',
             ),
-            BarItem(
-              filledIcon: CupertinoIcons.money_dollar_circle_fill,
-              outlinedIcon: CupertinoIcons.money_dollar_circle,
+            FloatingNavbarItem(
+              icon: CupertinoIcons.money_dollar_circle,
+              title: 'Tracker',
             ),
-            BarItem(
-              filledIcon: FontAwesomeIcons.cogs,
-              outlinedIcon: FontAwesomeIcons.cog,
+               FloatingNavbarItem(
+              icon: CupertinoIcons.money_dollar_circle,
+              title: 'Tracker',
+            ),
+            
+            FloatingNavbarItem(
+              icon: FontAwesomeIcons.circleDot,
+              title: 'Budgets',
             ),
           ],
-          onItemSelected: onItemSelected,
+        ).frosted(
+          blur: 10,
+          borderRadius: BorderRadius.circular(20),
+          padding: const EdgeInsets.all(8),
         ),
       ),
     );
