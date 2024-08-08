@@ -1,11 +1,14 @@
 import 'package:blur/blur.dart';
+import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:floating_navbar/floating_navbar.dart';
+import 'package:floating_navbar/floating_navbar_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 ///external packages
-import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wimm/main.dart';
 import 'package:wimm/screens/ExpenseScreen.dart';
@@ -48,12 +51,68 @@ class _MainScreenState extends State<MainScreen> {
       selectedIndex = index;
     });
   }
-
+  
   void onItemSelected(int index) {
     pageController.jumpToPage(index);
     setState(() {
       selectedIndex = index;
     });
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+  
+    return AnnotatedRegion(
+      value: const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.transparent,
+        statusBarColor: Colors.transparent,
+      ),
+      child: Scaffold(
+        bottomNavigationBar: CrystalNavigationBar(
+          items: [
+            CrystalNavigationBarItem(
+              icon: IconlyBold.home,
+              unselectedIcon: IconlyLight.home,
+              selectedColor: Colors.white,
+            ),
+            CrystalNavigationBarItem(
+              icon: IconlyBold.wallet,
+              unselectedIcon: IconlyLight.wallet,
+              selectedColor: Colors.white,
+            ),
+            CrystalNavigationBarItem(
+              icon: IconlyBold.chart,
+              unselectedIcon: IconlyLight.chart,
+              selectedColor: Colors.white,
+            ),
+            CrystalNavigationBarItem(
+              icon: IconlyBold.setting,
+              unselectedIcon: IconlyLight.setting,
+              selectedColor: Colors.white,
+            ),
+          ],
+          currentIndex: selectedIndex,
+          onTap: onItemSelected,
+        ),
+        body: _getSelectedScreen(), // Add this method to return the selected screen
+      ),
+    );
+  }
+  
+  Widget _getSelectedScreen() {
+    switch (selectedIndex) {
+      case 0:
+        return HomeScreen();
+      case 1:
+        return IncomeScreen();
+      case 2:
+        return ExpenseScreen();
+      case 3:
+        return BudgetScreen();
+      default:
+        return HomeScreen();
+    }
   }
 
   @override
@@ -64,52 +123,39 @@ class _MainScreenState extends State<MainScreen> {
       value: const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.transparent,
         statusBarColor: Colors.transparent,
-
       ),
       child: Scaffold(
-        body: PageView(
-          controller: pageController,
-          onPageChanged: onPageChanged,
-          children: screens,
-        ),
-        bottomNavigationBar: FloatingNavbar(
-          
-
-          ///////////////////////////
-          backgroundColor:     Color.fromARGB(82, 177, 177, 177),
-        selectedItemColor: themeProvider.currentTheme?.splashColor,
-        unselectedItemColor: themeProvider.currentTheme?. disabledColor,
-        selectedBackgroundColor: themeProvider.currentTheme?.indicatorColor,
-          
-          ///////////////
-          
+        bottomNavigationBar: CrystalNavigationBar(
+          items: [
+            CrystalNavigationBarItem(
+              icon: IconlyBold.home,
+              unselectedIcon: IconlyLight.home,
+              selectedColor: Colors.white,
+            ),
+            CrystalNavigationBarItem(icon: Icons.attach_money, title: Text('Income')),
+            CrystalNavigationBarItem(icon: Icons.money_off, title: Text('Expense')),
+            CrystalNavigationBarItem(icon: Icons.account_balance_wallet, title: Text('Budget')),
+          ],
           currentIndex: selectedIndex,
           onTap: onItemSelected,
-          items: [
-            FloatingNavbarItem(
-              icon: FontAwesomeIcons.houseUser,
-              title: 'Home',
-            ),
-            FloatingNavbarItem(
-              icon: CupertinoIcons.money_dollar_circle,
-              title: 'Tracker',
-            ),
-               FloatingNavbarItem(
-              icon: CupertinoIcons.money_dollar_circle,
-              title: 'Tracker',
-            ),
-            
-            FloatingNavbarItem(
-              icon: FontAwesomeIcons.circleDot,
-              title: 'Budgets',
-            ),
-          ],
-        ).frosted(
-          blur: 10,
-          borderRadius: BorderRadius.circular(20),
-          padding: const EdgeInsets.all(8),
         ),
+        body: _getSelectedScreen(), // Add this method to return the selected screen
       ),
     );
+  }
+
+  Widget _getSelectedScreen() {
+    switch (selectedIndex) {
+      case 0:
+        return HomeScreen();
+      case 1:
+        return IncomeScreen();
+      case 2:
+        return ExpenseScreen();
+      case 3:
+        return BudgetScreen();
+      default:
+        return HomeScreen();
+    }
   }
 }

@@ -9,7 +9,7 @@ class BarChartSample2 extends StatefulWidget {
   
   BarChartSample2({super.key});
  final  Color leftBarColor =  ThemeProvider().currentTheme!.indicatorColor;
-  final Color rightBarColor = ThemeProvider().currentTheme!.unselectedWidgetColor;
+  final Color rightBarColor = ThemeProvider().currentTheme!.hintColor;
  final  Color avgColor =  ThemeProvider().currentTheme!.cardColor;
     
   @override

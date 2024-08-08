@@ -24,7 +24,7 @@ void init(BuildContext context) {
     _fontSizeLarge = _width * 0.06;
 
     // Define text styles using Google Fonts
-    _textStyleSmall = GoogleFonts.istokWeb(
+    _textStyleSmall = GoogleFonts.oswald(
       fontSize: _fontSizeSmall,
       fontWeight: _fontWeightLight,
     );
@@ -32,7 +32,7 @@ void init(BuildContext context) {
       fontSize: _fontSizeMedium,
       fontWeight: _fontWeightRegular,
     );
-    _textStyleLarge = GoogleFonts.comfortaa(
+    _textStyleLarge = GoogleFonts.poppins(
       fontSize: _fontSizeLarge,
       fontWeight: _fontWeightBold,
     );
