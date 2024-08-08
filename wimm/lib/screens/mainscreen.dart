@@ -52,66 +52,59 @@ class _MainScreenState extends State<MainScreen> {
       selectedIndex = index;
     });
   }
-  
-  void onItemSelected(int index) {
+
+  void selectedPage(int index) {
     pageController.jumpToPage(index);
     setState(() {
       selectedIndex = index;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-  
-    return AnnotatedRegion(
-      value: const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.transparent,
-        statusBarColor: Colors.transparent,
+
+    return Scaffold(
+      bottomNavigationBar: CrystalNavigationBar(
+        paddingR: EdgeInsets.all(0),
+        height: MediaQuery.of(context).size.height * 0.1,
+        backgroundColor: Colors.transparent,
+        marginR: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+        enableFloatingNavBar: true,
+        indicatorColor: themeProvider.currentTheme!.hintColor,
+        duration: const Duration(milliseconds: 800),
+        margin: EdgeInsets.all(2),
+        outlineBorderColor: Colors.black,
+        items: [
+          CrystalNavigationBarItem(
+            icon: IconlyBold.home,
+            unselectedIcon: IconlyLight.home,
+            selectedColor: themeProvider.currentTheme!.primaryColor,
+          ),
+          CrystalNavigationBarItem(
+            icon: IconlyBold.wallet,
+            unselectedIcon: IconlyLight.wallet,
+            selectedColor: themeProvider.currentTheme!.primaryColor,
+          ),
+          CrystalNavigationBarItem(
+            icon: IconlyBold.chart,
+            unselectedIcon: IconlyLight.chart,
+            selectedColor: themeProvider.currentTheme!.primaryColor,
+          ),
+          CrystalNavigationBarItem(
+            icon: IconlyBold.setting,
+            unselectedIcon: IconlyLight.setting,
+            selectedColor: themeProvider.currentTheme!.primaryColor,
+          ),
+        ],
+        currentIndex: selectedIndex,
+        onTap: selectedPage,
       ),
-      child: Scaffold(
-        bottomNavigationBar: CrystalNavigationBar(
-          items: [
-            CrystalNavigationBarItem(
-              icon: IconlyBold.home,
-              unselectedIcon: IconlyLight.home,
-              selectedColor: Colors.white,
-            ),
-            CrystalNavigationBarItem(
-              icon: IconlyBold.wallet,
-              unselectedIcon: IconlyLight.wallet,
-              selectedColor: Colors.white,
-            ),
-            CrystalNavigationBarItem(
-              icon: IconlyBold.chart,
-              unselectedIcon: IconlyLight.chart,
-              selectedColor: Colors.white,
-            ),
-            CrystalNavigationBarItem(
-              icon: IconlyBold.setting,
-              unselectedIcon: IconlyLight.setting,
-              selectedColor: Colors.white,
-            ),
-          ],
-          currentIndex: selectedIndex,
-          onTap: onItemSelected,
-        ),
-        body: _getSelectedScreen(), // Add this method to return the selected screen
-      ),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        children: screens,
+      ), // Add this method to return the selected screen
     );
   }
-  
-  Widget _getSelectedScreen() {
-    switch (selectedIndex) {
-      case 0:
-        return HomeScreen();
-      case 1:
-        return IncomeScreen();
-      case 2:
-        return ExpenseScreen();
-      case 3:
-        return BudgetScreen();
-      default:
-        return HomeScreen();
-    }
-  }}
+}
