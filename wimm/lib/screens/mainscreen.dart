@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
+import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
 ///external packages
@@ -113,49 +114,4 @@ class _MainScreenState extends State<MainScreen> {
       default:
         return HomeScreen();
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-
-    return AnnotatedRegion(
-      value: const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.transparent,
-        statusBarColor: Colors.transparent,
-      ),
-      child: Scaffold(
-        bottomNavigationBar: CrystalNavigationBar(
-          items: [
-            CrystalNavigationBarItem(
-              icon: IconlyBold.home,
-              unselectedIcon: IconlyLight.home,
-              selectedColor: Colors.white,
-            ),
-            CrystalNavigationBarItem(icon: Icons.attach_money, title: Text('Income')),
-            CrystalNavigationBarItem(icon: Icons.money_off, title: Text('Expense')),
-            CrystalNavigationBarItem(icon: Icons.account_balance_wallet, title: Text('Budget')),
-          ],
-          currentIndex: selectedIndex,
-          onTap: onItemSelected,
-        ),
-        body: _getSelectedScreen(), // Add this method to return the selected screen
-      ),
-    );
-  }
-
-  Widget _getSelectedScreen() {
-    switch (selectedIndex) {
-      case 0:
-        return HomeScreen();
-      case 1:
-        return IncomeScreen();
-      case 2:
-        return ExpenseScreen();
-      case 3:
-        return BudgetScreen();
-      default:
-        return HomeScreen();
-    }
-  }
-}
+  }}

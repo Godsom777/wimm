@@ -46,6 +46,7 @@ dependencies:
   floating_navbar: ^2.0.2
   blurrycontainer: ^2.1.0
   crystal_navigation_bar: ^1.0.0
+  iconly: ^1.0.1
 
 dev_dependencies:
   flutter_test:
