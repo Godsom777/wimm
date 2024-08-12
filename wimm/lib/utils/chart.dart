@@ -5,6 +5,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wimm/main.dart';
 
+import 'local_providers.dart';
+
 class BarChartSample2 extends StatefulWidget {
   
   BarChartSample2({super.key});
@@ -61,7 +63,7 @@ class BarChartSample2State extends State<BarChartSample2> {
     return AspectRatio(
       aspectRatio: 1,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding:  EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -72,16 +74,16 @@ class BarChartSample2State extends State<BarChartSample2> {
                 const SizedBox(
                   width: 38,
                 ),
-                const Text(
+                 Text(
                   'Transactions',
-                  style: TextStyle(color: Colors.white, fontSize: 22),
+                  style: Provider.of<ScreenSizeProvider>(context).textStyleMedium,
                 ),
                 const SizedBox(
                   width: 4,
                 ),
-                const Text(
+                 Text(
                   'state',
-                  style: TextStyle(color: Color(0xff77839a), fontSize: 16),
+                  style: Provider.of<ScreenSizeProvider>(context).textStyleSmall,
                 ),
               ],
             ),
@@ -206,7 +208,7 @@ class BarChartSample2State extends State<BarChartSample2> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
+    final titles = <String>['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
     final Widget text = Text(
       titles[value.toInt()],
@@ -244,6 +246,8 @@ class BarChartSample2State extends State<BarChartSample2> {
   }
 
   Widget makeTransactionsIcon() {
+          final themeProvider = Provider.of<ThemeProvider>(context);
+
     const width = 4.5;
     const space = 3.5;
     return Row(
@@ -252,7 +256,7 @@ class BarChartSample2State extends State<BarChartSample2> {
         Container(
           width: width,
           height: 10,
-          color: Colors.white.withOpacity(0.4),
+          color: themeProvider.currentTheme!.hoverColor.withOpacity(0.4),
         ),
         const SizedBox(
           width: space,
@@ -260,7 +264,7 @@ class BarChartSample2State extends State<BarChartSample2> {
         Container(
           width: width,
           height: 28,
-          color: Colors.white.withOpacity(0.8),
+                    color: themeProvider.currentTheme!.hoverColor.withOpacity(0.8),
         ),
         const SizedBox(
           width: space,
@@ -268,7 +272,7 @@ class BarChartSample2State extends State<BarChartSample2> {
         Container(
           width: width,
           height: 42,
-          color: Colors.white.withOpacity(1),
+                   color: themeProvider.currentTheme!.hoverColor.withOpacity(1),
         ),
         const SizedBox(
           width: space,
@@ -276,7 +280,7 @@ class BarChartSample2State extends State<BarChartSample2> {
         Container(
           width: width,
           height: 28,
-          color: Colors.white.withOpacity(0.8),
+                    color: themeProvider.currentTheme!.shadowColor.withOpacity(0.8),
         ),
         const SizedBox(
           width: space,
@@ -284,7 +288,7 @@ class BarChartSample2State extends State<BarChartSample2> {
         Container(
           width: width,
           height: 10,
-          color: Colors.white.withOpacity(0.4),
+                   color: themeProvider.currentTheme!.hoverColor.withOpacity(0.4),
         ),
       ],
     );

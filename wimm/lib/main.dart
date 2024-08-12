@@ -34,25 +34,26 @@ class ThemeProvider with ChangeNotifier {
   bool? isDarkMode = false;
 
   ThemeData? get lightTheme => ThemeData(
-    hoverColor: Colors.white70,
-    disabledColor: Colors.black54,
+        hoverColor: Color.fromARGB(255, 246, 246, 246),
+        disabledColor: Color.fromARGB(77, 0, 0, 0),
         scaffoldBackgroundColor: Colors.white,
         brightness: Brightness.light,
         indicatorColor: const Color(0xFFff3378),
-        unselectedWidgetColor: Colors.blueGrey, 
-            cardColor: const Color(0xFF41E94B),
+        unselectedWidgetColor: Colors.blueGrey,
+        cardColor: Color(0xFFF5F5F5),
         primaryColor: const Color(0xFFFF3378),
         hintColor: const Color(0xFF33C9FF),
         highlightColor: const Color(0xFF41E94B),
+        dividerColor: Colors.grey,
         splashColor: const Color(0xFFFFD5E4),
         secondaryHeaderColor: const Color(0xFF9EF8A4),
         textTheme: const TextTheme(
-          titleSmall: TextStyle(fontSize: 8),
-          labelSmall: TextStyle(fontSize: 10),
-          displaySmall: TextStyle(fontSize: 12),
-          bodySmall: TextStyle(fontSize: 14),
-          bodyLarge: TextStyle(fontSize: 16),
-          labelLarge: TextStyle(fontSize: 18),
+          titleSmall: TextStyle(fontSize: 8, color: Colors.black45),
+          labelSmall: TextStyle(fontSize: 10, color: Colors.black45),
+          displaySmall: TextStyle(fontSize: 12, color: Colors.black45),
+          bodySmall: TextStyle(fontSize: 14, color: Colors.black45),
+          bodyLarge: TextStyle(fontSize: 16, color: Colors.black45),
+          labelLarge: TextStyle(fontSize: 18, color: Colors.black45),
         ),
         buttonTheme: const ButtonThemeData(
           buttonColor: Colors.green,
@@ -67,12 +68,25 @@ class ThemeProvider with ChangeNotifier {
       );
 
   ThemeData? get darkTheme => ThemeData(
-        scaffoldBackgroundColor: Colors.black,
+        disabledColor: Color(0x90E6E6E6),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 15, 15, 15),
         brightness: Brightness.dark,
-        primarySwatch: Colors.indigo,
-        hintColor: Colors.purple,
+        hintColor: const Color(0xFF33C9FF),
+        hoverColor: Color.fromARGB(45, 135, 124, 124),
         shadowColor: Colors.grey,
+        dividerColor: Color.fromARGB(111, 158, 158, 158),
+        indicatorColor: const Color(0xFFff3378),
+        unselectedWidgetColor: Color(0xFFD6D6D6),
+        cardColor: Color.fromARGB(255, 32, 32, 32),
+        primaryColor: const Color(0xFFFF3378),
+        highlightColor: const Color(0xFF41E94B),
+        splashColor: Color.fromARGB(255, 33, 33, 33),
+        secondaryHeaderColor: const Color(0xFF9EF8A4),
+
+        //////
         textTheme: const TextTheme(
+          titleSmall: TextStyle(fontSize: 8, color: Colors.white),
+          labelSmall: TextStyle(fontSize: 10, color: Colors.white),
           displaySmall: TextStyle(fontSize: 12, color: Colors.white),
           bodySmall: TextStyle(fontSize: 14, color: Colors.white),
           bodyLarge: TextStyle(fontSize: 16, color: Colors.white),

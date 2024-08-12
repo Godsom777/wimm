@@ -47,6 +47,9 @@ dependencies:
   blurrycontainer: ^2.1.0
   crystal_navigation_bar: ^1.0.0
   iconly: ^1.0.1
+  horizontal_week_calendar: ^0.0.17
+  date_picker_timeline: ^1.2.6
+  table_calendar: ^3.1.2
 
 dev_dependencies:
   flutter_test:

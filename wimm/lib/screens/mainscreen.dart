@@ -52,59 +52,63 @@ class _MainScreenState extends State<MainScreen> {
       selectedIndex = index;
     });
   }
-
+  
   void selectedPage(int index) {
     pageController.jumpToPage(index);
     setState(() {
       selectedIndex = index;
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
-    return Scaffold(
-      bottomNavigationBar: CrystalNavigationBar(
-        paddingR: EdgeInsets.all(0),
-        height: MediaQuery.of(context).size.height * 0.1,
-        backgroundColor: Colors.transparent,
-        marginR: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        enableFloatingNavBar: true,
-        indicatorColor: themeProvider.currentTheme!.hintColor,
-        duration: const Duration(milliseconds: 800),
-        margin: EdgeInsets.all(2),
-        outlineBorderColor: Colors.black,
-        items: [
-          CrystalNavigationBarItem(
-            icon: IconlyBold.home,
-            unselectedIcon: IconlyLight.home,
-            selectedColor: themeProvider.currentTheme!.primaryColor,
-          ),
-          CrystalNavigationBarItem(
-            icon: IconlyBold.wallet,
-            unselectedIcon: IconlyLight.wallet,
-            selectedColor: themeProvider.currentTheme!.primaryColor,
-          ),
-          CrystalNavigationBarItem(
-            icon: IconlyBold.chart,
-            unselectedIcon: IconlyLight.chart,
-            selectedColor: themeProvider.currentTheme!.primaryColor,
-          ),
-          CrystalNavigationBarItem(
-            icon: IconlyBold.setting,
-            unselectedIcon: IconlyLight.setting,
-            selectedColor: themeProvider.currentTheme!.primaryColor,
-          ),
-        ],
-        currentIndex: selectedIndex,
-        onTap: selectedPage,
+  
+    return AnnotatedRegion(
+      value:  SystemUiOverlayStyle(
+        systemNavigationBarColor: themeProvider.currentTheme!.primaryColor,
+        statusBarColor: themeProvider.currentTheme!.primaryColor,
+        systemStatusBarContrastEnforced: true,
+        systemNavigationBarContrastEnforced: true,
       ),
-      body: PageView(
-        controller: pageController,
-        onPageChanged: onPageChanged,
-        children: screens,
-      ), // Add this method to return the selected screen
+      child: Scaffold(
+        extendBody: true,
+        bottomNavigationBar: CrystalNavigationBar(
+          duration: Durations.extralong2,
+          backgroundColor: Colors.transparent,
+          borderRadius: 15,
+          outlineBorderColor: Colors.white70,
+          items: [
+            CrystalNavigationBarItem(
+              icon: IconlyBold.chart,
+              unselectedIcon: IconlyLight.chart,
+              selectedColor: themeProvider.currentTheme!.primaryColor,
+            ),
+            CrystalNavigationBarItem(
+              icon: IconlyBold.download,
+              unselectedIcon: IconlyLight.download,
+              selectedColor: themeProvider.currentTheme!.primaryColor,
+            ),
+            CrystalNavigationBarItem(
+              icon: IconlyBold.upload,
+              unselectedIcon: IconlyLight.upload,
+              selectedColor: themeProvider.currentTheme!.primaryColor,
+            ),
+            CrystalNavigationBarItem(
+              icon: IconlyBold.setting,
+              unselectedIcon: IconlyLight.setting,
+              selectedColor: themeProvider.currentTheme!.primaryColor,
+            ),
+          ],
+          currentIndex: selectedIndex,
+          onTap: selectedPage,
+        ),
+        body: PageView(
+          controller: pageController,
+          onPageChanged: onPageChanged,
+          children: screens,
+        ),// Add this method to return the selected screen
+      ),
     );
   }
 }
