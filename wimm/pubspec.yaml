@@ -50,6 +50,7 @@ dependencies:
   horizontal_week_calendar: ^0.0.17
   date_picker_timeline: ^1.2.6
   table_calendar: ^3.1.2
+  animated_pie_chart: ^0.0.2
 
 dev_dependencies:
   flutter_test:

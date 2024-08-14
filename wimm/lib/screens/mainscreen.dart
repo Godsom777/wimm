@@ -14,7 +14,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wimm/main.dart';
 import 'package:wimm/screens/ExpenseScreen.dart';
 //local packages
-import 'IncomeScreen.dart';
+import 'IncomeAndExpenseScreen.dart';
 import 'SettingsScreen.dart';
 import 'homeScreen.dart';
 

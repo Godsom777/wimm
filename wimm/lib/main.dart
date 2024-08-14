@@ -35,7 +35,7 @@ class ThemeProvider with ChangeNotifier {
 
   ThemeData? get lightTheme => ThemeData(
         hoverColor: Color.fromARGB(255, 246, 246, 246),
-        disabledColor: Color.fromARGB(77, 0, 0, 0),
+        disabledColor: Color.fromARGB(162, 0, 0, 0),
         scaffoldBackgroundColor: Colors.white,
         brightness: Brightness.light,
         indicatorColor: const Color(0xFFff3378),
