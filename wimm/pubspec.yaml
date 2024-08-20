@@ -51,6 +51,7 @@ dependencies:
   date_picker_timeline: ^1.2.6
   table_calendar: ^3.1.2
   animated_pie_chart: ^0.0.2
+  modular_ui: ^0.0.5
 
 dev_dependencies:
   flutter_test:

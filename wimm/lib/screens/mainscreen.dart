@@ -1,7 +1,3 @@
-import 'package:blur/blur.dart';
-import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:floating_navbar/floating_navbar.dart';
-import 'package:floating_navbar/floating_navbar_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +6,6 @@ import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
 ///external packages
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wimm/main.dart';
 import 'package:wimm/screens/ExpenseScreen.dart';
 //local packages
@@ -26,9 +21,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final List<Widget> screens = const [
+  final List<Widget> screens = [
     HomeScreen(),
-    IncomeScreen(),
+    IncomeAndExpenseScreen(),
     ExpenseScreen(),
     BudgetScreen(),
   ];

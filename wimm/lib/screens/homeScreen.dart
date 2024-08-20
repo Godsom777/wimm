@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: themeProvider.currentTheme!.cardColor),
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: BarChartSample2(),
+                    child: TotalBarChart(),
                   )),
               const SizedBox(
                 height: 20,

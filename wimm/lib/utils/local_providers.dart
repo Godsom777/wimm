@@ -4,13 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 class ScreenSizeProvider with ChangeNotifier {
   double _height = 0.0;
   double _width = 0.0;
+  double _fontXSmall = 0.0;
   double _fontSizeSmall = 0.0;
   double _fontSizeMedium = 0.0;
   double _fontSizeLarge = 0.0;
+  final FontWeight _fontWeightXLight = FontWeight.w100;
   final FontWeight _fontWeightLight = FontWeight.w300;
   final FontWeight _fontWeightRegular = FontWeight.w500;
   final FontWeight _fontWeightBold = FontWeight.w700;
 
+  TextStyle _textStyleXSmall = const TextStyle();
   TextStyle _textStyleSmall = const TextStyle();
   TextStyle _textStyleMedium = const TextStyle();
   TextStyle _textStyleLarge = const TextStyle();
@@ -28,15 +31,22 @@ class ScreenSizeProvider with ChangeNotifier {
     _width = MediaQuery.of(context).size.width;
 
     // Define font sizes based on screen width
+    _fontXSmall = _width * 0.03;
     _fontSizeSmall = _width * 0.04;
     _fontSizeMedium = _width * 0.05;
     _fontSizeLarge = _width * 0.06;
 
     // Define text styles using Google Fonts
+        _textStyleXSmall = GoogleFonts.roboto(
+      fontSize: _fontXSmall,
+      fontWeight: _fontWeightLight,
+    );
+    
     _textStyleSmall = GoogleFonts.roboto(
       fontSize: _fontSizeSmall,
       fontWeight: _fontWeightLight,
     );
+
     _textStyleMedium = GoogleFonts.roboto(
       fontSize: _fontSizeMedium,
       fontWeight: _fontWeightRegular,
@@ -83,7 +93,8 @@ class ScreenSizeProvider with ChangeNotifier {
   double get fontSizeSmall => _fontSizeSmall;
   double get fontSizeMedium => _fontSizeMedium;
   double get fontSizeLarge => _fontSizeLarge;
-
+  
+  TextStyle get textStyleXSmall => _textStyleXSmall;
   TextStyle get textStyleSmall => _textStyleSmall;
   TextStyle get textStyleMedium => _textStyleMedium;
   TextStyle get textStyleLarge => _textStyleLarge;
