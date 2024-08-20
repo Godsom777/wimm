@@ -32,3 +32,37 @@ Build Your UI: Design the user interface for your money tracker app, including s
 Implement Data Handling: Write code to store and retrieve data from Cloud Firestore, using the Firebase SDK.
 Add Cloud Functions (Optional): If you need to perform server-side logic, create Cloud Functions to handle data validation, calculations, and notifications.
 Remember to prioritize security and data privacy when building your money tracker app. Use Firebase Authentication to protect user accounts and follow best practices for storing sensitive financial data.
+
+
+
+
+lib/
+├── main.dart
+├── app/
+│   ├── app.dart
+│   ├── routes.dart
+│   └── theme.dart
+├── models/
+│   ├── user_model.dart
+│   └── transaction_model.dart
+├── providers/
+│   ├── auth_provider.dart
+│   ├── theme_provider.dart
+│   └── transaction_provider.dart
+├── services/
+│   ├── auth_service.dart
+│   ├── firestore_service.dart
+│   └── firebase_service.dart
+├── screens/
+│   ├── home_screen.dart
+│   ├── login_screen.dart
+│   ├── register_screen.dart
+│   ├── transaction_screen.dart
+│   └── profile_screen.dart
+├── widgets/
+│   ├── custom_button.dart
+│   ├── custom_text_field.dart
+│   └── transaction_list.dart
+└── utils/
+    ├── constants.dart
+    └── validators.dart
