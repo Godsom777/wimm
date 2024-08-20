@@ -62,23 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              // Container(
-              //   color: themeProvider.currentTheme!.hoverColor,
-              //   child: DatePicker(
-              //     DateTime.now(),
-              //     daysCount: 31,
-              //     initialSelectedDate: DateTime.now(),
-              //     selectionColor: themeProvider.currentTheme!.primaryColor,
-              //     selectedTextColor: Colors.white,
-              //     deactivatedColor: themeProvider.currentTheme!.disabledColor,
-              //     onDateChange: (date) {
-              //       // New date selected
-              //       setState(() {
-              //         _onDateSelected(date);
-              //       });
-              //     },
-              //   ),
-              // ),
+            
               const SizedBox(
                 height: 20,
               ),

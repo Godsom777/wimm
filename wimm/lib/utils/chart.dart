@@ -1,4 +1,3 @@
-
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
@@ -9,23 +8,22 @@ import 'package:wimm/main.dart';
 import 'local_providers.dart';
 
 class TotalBarChart extends StatefulWidget {
-  
-TotalBarChart({Key? key}) : super(key: key);
- final  Color leftBarColor =  ThemeProvider().currentTheme!.indicatorColor;
+  TotalBarChart({Key? key}) : super(key: key);
+  final Color leftBarColor = ThemeProvider().currentTheme!.indicatorColor;
   final Color rightBarColor = ThemeProvider().currentTheme!.hintColor;
- final  Color avgColor =  ThemeProvider().currentTheme!.cardColor;
-    
+  final Color avgColor = ThemeProvider().currentTheme!.cardColor;
+
   @override
   State<StatefulWidget> createState() => TotalBarChartStateState();
 }
 
-
-
-class TotalBarChartStateState extends State<TotalBarChart> {
+class TotalBarChartStateState extends State<TotalBarChart>
+    with SingleTickerProviderStateMixin {
   final double width = 7;
 
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
+  bool _toggle = true;
 
   int touchedGroupIndex = -1;
 
@@ -39,6 +37,7 @@ class TotalBarChartStateState extends State<TotalBarChart> {
     final barGroup5 = makeGroupData(4, 17, 6);
     final barGroup6 = makeGroupData(5, 19, 1.5);
     final barGroup7 = makeGroupData(6, 10, 1.5);
+    _startAnimation();
 
     final items = [
       barGroup1,
@@ -55,16 +54,23 @@ class TotalBarChartStateState extends State<TotalBarChart> {
     showingBarGroups = rawBarGroups;
   }
 
-
+  void _startAnimation() {
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        _toggle = !_toggle;
+      });
+      _startAnimation();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-        final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return AspectRatio(
       aspectRatio: 1,
       child: Padding(
-        padding:  EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -75,16 +81,18 @@ class TotalBarChartStateState extends State<TotalBarChart> {
                 const SizedBox(
                   width: 38,
                 ),
-                 Text(
+                Text(
                   'Transactions',
-                  style: Provider.of<ScreenSizeProvider>(context).textStyleMedium,
+                  style:
+                      Provider.of<ScreenSizeProvider>(context).textStyleMedium,
                 ),
                 const SizedBox(
                   width: 4,
                 ),
-                 Text(
+                Text(
                   'state',
-                  style: Provider.of<ScreenSizeProvider>(context).textStyleSmall,
+                  style:
+                      Provider.of<ScreenSizeProvider>(context).textStyleSmall,
                 ),
               ],
             ),
@@ -247,7 +255,7 @@ class TotalBarChartStateState extends State<TotalBarChart> {
   }
 
   Widget makeTransactionsIcon() {
-          final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     const width = 4.5;
     const space = 3.5;
@@ -265,7 +273,7 @@ class TotalBarChartStateState extends State<TotalBarChart> {
         Container(
           width: width,
           height: 28,
-                    color: themeProvider.currentTheme!.hoverColor.withOpacity(0.8),
+          color: themeProvider.currentTheme!.hoverColor.withOpacity(0.8),
         ),
         const SizedBox(
           width: space,
@@ -273,7 +281,7 @@ class TotalBarChartStateState extends State<TotalBarChart> {
         Container(
           width: width,
           height: 42,
-                   color: themeProvider.currentTheme!.hoverColor.withOpacity(1),
+          color: themeProvider.currentTheme!.hoverColor.withOpacity(1),
         ),
         const SizedBox(
           width: space,
@@ -281,7 +289,7 @@ class TotalBarChartStateState extends State<TotalBarChart> {
         Container(
           width: width,
           height: 28,
-                    color: themeProvider.currentTheme!.shadowColor.withOpacity(0.8),
+          color: themeProvider.currentTheme!.shadowColor.withOpacity(0.8),
         ),
         const SizedBox(
           width: space,
@@ -289,7 +297,7 @@ class TotalBarChartStateState extends State<TotalBarChart> {
         Container(
           width: width,
           height: 10,
-                   color: themeProvider.currentTheme!.hoverColor.withOpacity(0.4),
+          color: themeProvider.currentTheme!.hoverColor.withOpacity(0.4),
         ),
       ],
     );
@@ -297,8 +305,9 @@ class TotalBarChartStateState extends State<TotalBarChart> {
 }
 /////////////////////////////////////////////////////////INCOME & EXPENSE SCREEN ///////////////////////////
 
-
 class IncomeWidget extends StatefulWidget {
+
+  
   IncomeWidget({Key? key}) : super(key: key);
   final Color rightBarColor = ThemeProvider().currentTheme!.hintColor;
   final Color avgColor = ThemeProvider().currentTheme!.cardColor;
@@ -307,39 +316,55 @@ class IncomeWidget extends StatefulWidget {
   State<StatefulWidget> createState() => IncomeWidgetState();
 }
 
-class IncomeWidgetState extends State<IncomeWidget> {
+class IncomeWidgetState extends State<IncomeWidget>
+    with SingleTickerProviderStateMixin {
+      
   final double width = 7;
 
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
+  late AnimationController _controller;
+  late Animation<Color?> _colorAnimation1;
+  late Animation<Color?> _colorAnimation2;
+  bool _toggle = true;
 
   int touchedGroupIndex = -1;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   final barGroup1 = makeGroupData(0, 0, 12);
-  //   final barGroup2 = makeGroupData(1, 0, 12);
-  //   final barGroup3 = makeGroupData(2, 0, 5);
-  //   final barGroup4 = makeGroupData(3, 0, 16);
-  //   final barGroup5 = makeGroupData(4, 0, 6);
-  //   final barGroup6 = makeGroupData(5, 0, 1.5);
-  //   final barGroup7 = makeGroupData(6, 0, 1.5);
+  @override
+  void initState() {
+    super.initState();
 
-  //   final items = [
-  //     barGroup1,
-  //     barGroup2,
-  //     barGroup3,
-  //     barGroup4,
-  //     barGroup5,
-  //     barGroup6,
-  //     barGroup7,
-  //   ];
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..repeat(reverse: true);
 
-  //   rawBarGroups = items;
+    _colorAnimation1 = ColorTween(
+      begin:Color(0xFFff3378),
+      end: const Color(0xFF33C9FF),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
 
-  //   showingBarGroups = rawBarGroups;
-  // }
+    _colorAnimation2 = ColorTween(
+      begin: const Color(0xFF33C9FF),
+      end:Color(0xFFff3378),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.elasticInOut,
+    ));
+        _startAnimation();
+  }
+
+  void _startAnimation() {
+    Future.delayed(Duration(milliseconds: 0), () {
+      setState(() {
+        _toggle = !_toggle;
+      });
+      _startAnimation();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +386,8 @@ class IncomeWidgetState extends State<IncomeWidget> {
                 ),
                 Text(
                   'Weeks Income Chart',
-                  style: Provider.of<ScreenSizeProvider>(context).textStyleSmallBold,
+                  style: Provider.of<ScreenSizeProvider>(context)
+                      .textStyleSmallBold,
                 ),
                 const SizedBox(
                   width: 4,
@@ -369,177 +395,120 @@ class IncomeWidgetState extends State<IncomeWidget> {
                 Row(
                   children: [
                     Icon(IconlyBroken.time_circle),
-                  
                   ],
                 ),
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
-              SizedBox(height: 200,
-              width: MediaQuery.of(context).size.width,
-                child: LineChart(
-                            LineChartData(
-                              
-                              maxX: 7,
-                              minX: 1,
-                             
-                lineBarsData: [
-                  LineChartBarData(curveSmoothness: 0.3,
-                  preventCurveOverShooting: true,
-                    belowBarData: BarAreaData(show: true, color: 
-                      themeProvider.currentTheme!.hintColor.withOpacity(0.2),
-                    ),
-                    gradient: LinearGradient(colors: [
-                      themeProvider.currentTheme!.indicatorColor,
-                      themeProvider.currentTheme!.hintColor
-                    ]),
-                    spots: [
-                      FlSpot(1, 2000),
-                      FlSpot(2, 1000),
-                      FlSpot(3, 14000),
-                      FlSpot(4, 9000),
-                      FlSpot(5, 10000),
-                      FlSpot(6, 9000),
-                      FlSpot(7, 1000),
-                    ],
-                    isCurved: true,
-                    color: themeProvider.currentTheme!.indicatorColor,
-                    
-                    barWidth: 2,
-                    
-                  ),
-                ],
-                titlesData: FlTitlesData(
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (value, meta) {
-                        switch (value.toInt()) {
-                          case 1:
-                            return Text('Mon');
-                          case 2:
-                            return Text('Tue');
-                          case 3:
-                            return Text('Wed');
-                          case 4:
-                            return Text('Thu');
-                          case 5:
-                            return Text('Fri');
-                          case 6:
-                            return Text('Sat');
-                          case 7:
-                            return Text('Sun');
-                        }
-                        return Text('');
-                      },
-                    ),
-                  ),
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(showTitles: true),
-                  ),
-                  rightTitles: AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  topTitles: AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                ),
-                borderData: FlBorderData(
-                  show: true,
-                  border: Border.all(color: const Color(0xff37434d)),
-                ),
-                gridData: FlGridData(show: true),
-                            ),
+            SizedBox(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                child: AnimatedContainer(
+                  duration: const Duration(seconds: 3),
+                  onEnd: () {
+                    setState(() {
+                      _toggle = !_toggle;
+                    });
+                  },
+               
+                  child: LineChart(
+                    LineChartData(
+                      baselineY: 00,
+                      baselineX: 00,
+                      maxX: 7,
+                      lineBarsData: [
+                        LineChartBarData(
+                          curveSmoothness: 0.3,
+                          isStepLineChart: false,
+                          isStrokeCapRound: true,
+                          showingIndicators: [],
+                          preventCurveOverShooting: true,
+                          belowBarData: BarAreaData(
+                            show: true,
+                            color: themeProvider.currentTheme!.hintColor
+                                .withOpacity(0.2),
                           ),
-              ),
-            
-            // Expanded(
-            //   child: BarChart(
-            //     BarChartData(
-            //       maxY: 20,
-            //       barTouchData: BarTouchData(
-            //         touchTooltipData: BarTouchTooltipData(
-            //           getTooltipColor: ((group) {
-            //             return Colors.grey;
-            //           }),
-            //           getTooltipItem: (a, b, c, d) => null,
-            //         ),
-            //         touchCallback: (FlTouchEvent event, response) {
-            //           if (response == null || response.spot == null) {
-            //             setState(() {
-            //               touchedGroupIndex = -1;
-            //               showingBarGroups = List.of(rawBarGroups);
-            //             });
-            //             return;
-            //           }
+                           gradient: LinearGradient(
+                      colors: [
+                        _colorAnimation1.value!,
+                        _colorAnimation2.value!,
+                            ],
+                    ),
+                          spots: [
+                            FlSpot(1, 20000),
+                            FlSpot(2, 25000),
+                            FlSpot(3, 140000),
+                            FlSpot(4, 90000),
+                            FlSpot(5, 10000),
+                            FlSpot(6, 90000),
+                            FlSpot(7, 10000),
+                          ],
+                          isCurved: true,
+                          color: themeProvider.currentTheme!.indicatorColor,
+                          barWidth: 2,
+                        ),
+                      ],
+                      titlesData: FlTitlesData(
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: (value, meta) {
+                              switch (value.toInt()) {
+                                case 1:
+                                  return Text('Mon');
+                                case 2:
+                                  return Text('Tue');
+                                case 3:
+                                  return Text('Wed');
+                                case 4:
+                                  return Text('Thu');
+                                case 5:
+                                  return Text('Fri');
+                                case 6:
+                                  return Text('Sat');
+                                case 7:
+                                  return Text('Sun');
+                              }
+                              return Text('');
+                            },
+                          ),
+                        ),
+                        leftTitles: AxisTitles(
+                          drawBelowEverything: false,
+                          axisNameSize: 18,
+                          axisNameWidget: Text('Amount'),
+                          sideTitles: SideTitles(
+                            reservedSize: 1,
+                            showTitles: true,
+                            getTitlesWidget: (value, meta) {
+                              return Text(
+                                value.toString(),
+                                style: Provider.of<ScreenSizeProvider>(context)
+                                    .textStyleXSmall,
+                                softWrap: false,
+                                overflow: TextOverflow.visible,
+                              );
+                            },
+                          ),
+                        ),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                      ),
+                      borderData: FlBorderData(
+                        show: true,
+                        border: Border.all(color: const Color(0xff37434d)),
+                      ),
+                      gridData: FlGridData(show: true),
+                    ),
+                  ),
+                )),
 
-            //           touchedGroupIndex = response.spot!.touchedBarGroupIndex;
-
-            //           setState(() {
-            //             if (!event.isInterestedForInteractions) {
-            //               touchedGroupIndex = -1;
-            //               showingBarGroups = List.of(rawBarGroups);
-            //               return;
-            //             }
-            //             showingBarGroups = List.of(rawBarGroups);
-            //             if (touchedGroupIndex != -1) {
-            //               var sum = 0.0;
-            //               for (final rod
-            //                   in showingBarGroups[touchedGroupIndex].barRods) {
-            //                 sum += rod.toY;
-            //               }
-            //               final avg = sum /
-            //                   showingBarGroups[touchedGroupIndex]
-            //                       .barRods
-            //                       .length;
-
-            //               showingBarGroups[touchedGroupIndex] =
-            //                   showingBarGroups[touchedGroupIndex].copyWith(
-            //                 barRods: showingBarGroups[touchedGroupIndex]
-            //                     .barRods
-            //                     .map((rod) {
-            //                   return rod.copyWith(
-            //                       toY: avg, color: widget.avgColor);
-            //                 }).toList(),
-            //               );
-            //             }
-            //           });
-            //         },
-            //       ),
-            //       titlesData: FlTitlesData(
-            //         show: true,
-            //         rightTitles: const AxisTitles(
-            //           sideTitles: SideTitles(showTitles: false),
-            //         ),
-            //         topTitles: const AxisTitles(
-            //           sideTitles: SideTitles(showTitles: false),
-            //         ),
-            //         bottomTitles: AxisTitles(
-            //           sideTitles: SideTitles(
-            //             showTitles: true,
-            //             getTitlesWidget: bottomTitles,
-            //             reservedSize: 42,
-            //           ),
-            //         ),
-            //         leftTitles: AxisTitles(
-            //           sideTitles: SideTitles(
-            //             showTitles: true,
-            //             reservedSize: 28,
-            //             interval: 1,
-            //             getTitlesWidget: leftTitles,
-            //           ),
-            //         ),
-            //       ),
-            //       borderData: FlBorderData(
-            //         show: false,
-            //       ),
-            //       barGroups: showingBarGroups,
-            //       gridData: const FlGridData(show: false),
-            //     ),
-            //   ),
-            // ),
             const SizedBox(
               height: 12,
             ),
@@ -551,10 +520,10 @@ class IncomeWidgetState extends State<IncomeWidget> {
 
   Widget leftTitles(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: Color(0xff7589a2),
-      fontWeight: FontWeight.bold,
-      fontSize: 14,
-    );
+        color: Color(0xff7589a2),
+        fontWeight: FontWeight.bold,
+        fontSize: 12,
+        letterSpacing: 0);
     String text;
     if (value == 0) {
       text = '1K';
@@ -566,47 +535,23 @@ class IncomeWidgetState extends State<IncomeWidget> {
       return Container();
     }
     return SideTitleWidget(
+      fitInside: const SideTitleFitInsideData(
+          enabled: false,
+          axisPosition: 10,
+          parentAxisSize: 8,
+          distanceFromEdge: 0),
       axisSide: meta.axisSide,
       space: 0,
-      child: Text(text, style: style),
-    );
-  }
-
-  Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-    final Widget text = Text(
-      titles[value.toInt()],
-      style: Provider.of<ScreenSizeProvider>(context).textStyleSmallBold,
-      
-    );
-
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      space: 16, //margin top
-      child: text,
-    );
-  }
-
- 
- 
-
-  BarChartGroupData makeGroupData(int x, double y1, double y2) {
-    return BarChartGroupData(
-      barsSpace: 4,
-      x: x,
-      barRods: [
-        BarChartRodData(
-          toY: y1,
-          color: Colors.transparent, // Hide left bar
-          width: width,
-        ),
-        BarChartRodData(
-          toY: y2,
-          color: widget.rightBarColor,
-          width: width,
-        ),
-      ],
+      child: Text(
+        text,
+        style: style,
+        softWrap: false,
+        maxLines: 1,
+        overflow: TextOverflow.visible,
+      ),
     );
   }
 }
+
+
+
