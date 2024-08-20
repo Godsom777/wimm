@@ -97,9 +97,32 @@ class _IncomeAndExpenseScreenState extends State<IncomeAndExpenseScreen>
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(children: [
-                
-                
-                IncomeWidget(),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                            color: themeProvider.currentTheme!.hintColor
+                                .withOpacity(0.4),
+                            width: 0.5),
+                        color: themeProvider.currentTheme!.cardColor),
+                    child: IncomeWidget()),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('Your InBounds',
+                          style: Provider.of<ScreenSizeProvider>(context)
+                              .textStyleMediumBold),
+                    ],
+                  ),
+                ),
                 Dismissible(
                   background: Container(
                     color: secondColor,
@@ -141,16 +164,43 @@ class _IncomeAndExpenseScreenState extends State<IncomeAndExpenseScreen>
                       );
                     }
                   },
-                  child: Expanded(
-                    child: MUIPrimaryListTile(
+                  child:
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                     decoration: BoxDecoration(
+                        color: bgColors,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    child: ExpansionTile(
                       leading: Padding(
                         padding: const EdgeInsets.only(left: 0.0, right: 12),
-                        child: Icon(IconlyBold.discount, color:secondColor),
+                        child: Icon(IconlyBold.discount, color: secondColor),
                       ),
-                      bgColor: bgColors,
-                      title: Text('\$300', style: Provider.of<ScreenSizeProvider>(context).textStyleMediumBold),
-                      description: Text('Money from freelancer gig payment for June', softWrap: true, overflow:
-                      TextOverflow.fade,maxLines: 2,),
+                      // backgroundColor: bgColors,
+                      // collapsedBackgroundColor: bgColors,
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('\$300',
+                              style: Provider.of<ScreenSizeProvider>(context)
+                                  .textStyleLargeBold),
+                          Text(' 12/06/2021',
+                              style: Provider.of<ScreenSizeProvider>(context)
+                                  .textStyleXSmall),
+                        ],
+                      ),
+                      subtitle: Text('Money from freelancer gig payment for June'),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text(
+                            'Money from freelancer gig payment for June oiewnfowe weijf iwjen  wenbc weic iwbec we cihwbeui we ciuwec ewcuiew cih e9bie cuw ic  weuc hw eciu wjecklj ahc ajjasd cjkq en dsnv d av dj',
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
+                            maxLines: 3,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -160,8 +210,7 @@ class _IncomeAndExpenseScreenState extends State<IncomeAndExpenseScreen>
               width: MediaQuery.of(context).size.width,
               ///////////////////Expense //////////////////
               child: Column(children: [
-              
-                ExchangeWidget(),
+                ExpenseWidget(),
                 Dismissible(
                   background: Container(
                     color: secondColor,
@@ -233,7 +282,7 @@ class _IncomeAndExpenseScreenState extends State<IncomeAndExpenseScreen>
         ),
         child: Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,  
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
@@ -241,64 +290,3 @@ class _IncomeAndExpenseScreenState extends State<IncomeAndExpenseScreen>
 
 /////////////////////////////////////////////////////////////
 
-
-
-class ExchangeWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-        final themeProvider = Provider.of<ThemeProvider>(context);
-
-    return Container(
-      height: MediaQuery.of(context).size.height / 3,
-      padding: EdgeInsets.all(16),
-      child: BarChart(
-        BarChartData(
-          barGroups: [
-            BarChartGroupData(x: 1, barRods: [
-              BarChartRodData(
-                color: themeProvider.currentTheme!.indicatorColor,
-                toY: 11,
-              )
-            ]),
-            BarChartGroupData(x: 2, barRods: [
-              BarChartRodData(
-                color: themeProvider.currentTheme!.indicatorColor,
-                toY: 10,
-              )
-            ]),
-            BarChartGroupData(x: 3, barRods: [
-              BarChartRodData(
-                color: themeProvider.currentTheme!.indicatorColor,
-                toY: 14,
-              )
-            ]),
-                BarChartGroupData(x: 4, barRods: [
-              BarChartRodData(
-                color: themeProvider.currentTheme!.indicatorColor,
-                toY: 9,
-              )
-            ]),
-            BarChartGroupData(x: 5, barRods: [
-              BarChartRodData(
-                color: themeProvider.currentTheme!.indicatorColor,
-                toY: 13,
-              )
-            ]),
-            BarChartGroupData(x: 6, barRods: [
-              BarChartRodData(
-                color: themeProvider.currentTheme!.indicatorColor,
-                toY: 9,
-              )
-            ]),
-            BarChartGroupData(x: 7, barRods: [
-              BarChartRodData(
-                color: themeProvider.currentTheme!.indicatorColor,
-                toY: 4,
-              )
-            ]),
-          ],
-        ),
-      ),
-    );
-  }
-}

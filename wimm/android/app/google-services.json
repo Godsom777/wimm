@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "959343452766",
+    "project_id": "trackmymoney-f604c",
+    "storage_bucket": "trackmymoney-f604c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959343452766:android:95e82b2a67a84dba620acf",
+        "android_client_info": {
+          "package_name": "com.godsom.wimm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959343452766-0ao7vqjjms1gg6t25ne274460bbus7em.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgyqyHAFIyvF4fKMin3iyyMY8u2JsOKbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959343452766-0ao7vqjjms1gg6t25ne274460bbus7em.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

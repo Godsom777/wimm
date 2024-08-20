@@ -24,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> screens = [
     HomeScreen(),
     IncomeAndExpenseScreen(),
-    ExpenseScreen(),
+  
     BudgetScreen(),
   ];
   int selectedIndex = 0;
@@ -84,11 +84,11 @@ class _MainScreenState extends State<MainScreen> {
               unselectedIcon: IconlyLight.download,
               selectedColor: themeProvider.currentTheme!.primaryColor,
             ),
-            CrystalNavigationBarItem(
-              icon: IconlyBold.upload,
-              unselectedIcon: IconlyLight.upload,
-              selectedColor: themeProvider.currentTheme!.primaryColor,
-            ),
+            // CrystalNavigationBarItem(
+            //   icon: IconlyBold.upload,
+            //   unselectedIcon: IconlyLight.upload,
+            //   selectedColor: themeProvider.currentTheme!.primaryColor,
+            // ),
             CrystalNavigationBarItem(
               icon: IconlyBold.setting,
               unselectedIcon: IconlyLight.setting,

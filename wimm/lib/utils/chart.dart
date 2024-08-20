@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wimm/main.dart';
+import 'package:wimm/screens/ExpenseScreen.dart';
 
 import 'local_providers.dart';
 
@@ -335,7 +336,7 @@ class IncomeWidgetState extends State<IncomeWidget>
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 5),
       vsync: this,
     )..repeat(reverse: true);
 
@@ -554,4 +555,254 @@ class IncomeWidgetState extends State<IncomeWidget>
 }
 
 
+///////////////////////////////// Expenses Tab //////////////////////////////
+///
 
+
+class ExpenseWidget extends StatefulWidget {
+
+  
+  ExpenseWidget({super.key});
+  final Color rightBarColor = ThemeProvider().currentTheme!.hintColor;
+  final Color avgColor = ThemeProvider().currentTheme!.cardColor;
+
+  @override
+  State<StatefulWidget> createState() => ExpenseWidgetState();
+}
+
+class ExpenseWidgetState extends State<ExpenseWidget>
+    with SingleTickerProviderStateMixin {
+      
+  final double width = 7;
+
+  late List<BarChartGroupData> rawBarGroups;
+  late List<BarChartGroupData> showingBarGroups;
+  late AnimationController _controller;
+  late Animation<Color?> _colorAnimation1;
+  late Animation<Color?> _colorAnimation2;
+  bool _toggle = true;
+
+  int touchedGroupIndex = -1;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _colorAnimation1 = ColorTween(
+      begin:Color(0xFFff3378),
+      end: const Color(0xFF33C9FF),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+
+    _colorAnimation2 = ColorTween(
+      begin: const Color(0xFF33C9FF),
+      end:Color(0xFFff3378),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.elasticInOut,
+    ));
+        _startAnimation();
+  }
+
+  void _startAnimation() {
+    Future.delayed(Duration(milliseconds: 0), () {
+      setState(() {
+        _toggle = !_toggle;
+      });
+      _startAnimation();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    return AspectRatio(
+      aspectRatio: 1.3,
+      child: Padding(
+        padding: EdgeInsets.only(left: 30, right: 30, top: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const SizedBox(
+                  width: 38,
+                ),
+                Text(
+                  'Weeks Income Chart',
+                  style: Provider.of<ScreenSizeProvider>(context)
+                      .textStyleSmallBold,
+                ),
+                const SizedBox(
+                  width: 4,
+                ),
+                Row(
+                  children: [
+                    Icon(IconlyBroken.time_circle),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                child: AnimatedContainer(
+                  duration: const Duration(seconds: 3),
+                  onEnd: () {
+                    setState(() {
+                      _toggle = !_toggle;
+                    });
+                  },
+               
+                  child: LineChart(
+                    LineChartData(
+                      baselineY: 00,
+                      baselineX: 00,
+                      maxX: 7,
+                      lineBarsData: [
+                        LineChartBarData(
+                          curveSmoothness: 0.3,
+                          isStepLineChart: false,
+                          isStrokeCapRound: true,
+                          showingIndicators: [],
+                          preventCurveOverShooting: true,
+                          belowBarData: BarAreaData(
+                            show: true,
+                            color: themeProvider.currentTheme!.hintColor
+                                .withOpacity(0.2),
+                          ),
+                           gradient: LinearGradient(
+                      colors: [
+                        _colorAnimation1.value!,
+                        _colorAnimation2.value!,
+                            ],
+                    ),
+                          spots: [
+                            FlSpot(1, 20000),
+                            FlSpot(2, 25000),
+                            FlSpot(3, 140000),
+                            FlSpot(4, 90000),
+                            FlSpot(5, 10000),
+                            FlSpot(6, 90000),
+                            FlSpot(7, 10000),
+                          ],
+                          isCurved: true,
+                          color: themeProvider.currentTheme!.indicatorColor,
+                          barWidth: 2,
+                        ),
+                      ],
+                      titlesData: FlTitlesData(
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: (value, meta) {
+                              switch (value.toInt()) {
+                                case 1:
+                                  return Text('Mon');
+                                case 2:
+                                  return Text('Tue');
+                                case 3:
+                                  return Text('Wed');
+                                case 4:
+                                  return Text('Thu');
+                                case 5:
+                                  return Text('Fri');
+                                case 6:
+                                  return Text('Sat');
+                                case 7:
+                                  return Text('Sun');
+                              }
+                              return Text('');
+                            },
+                          ),
+                        ),
+                        leftTitles: AxisTitles(
+                          drawBelowEverything: false,
+                          axisNameSize: 18,
+                          axisNameWidget: Text('Amount'),
+                          sideTitles: SideTitles(
+                            reservedSize: 1,
+                            showTitles: true,
+                            getTitlesWidget: (value, meta) {
+                              return Text(
+                                value.toString(),
+                                style: Provider.of<ScreenSizeProvider>(context)
+                                    .textStyleXSmall,
+                                softWrap: false,
+                                overflow: TextOverflow.visible,
+                              );
+                            },
+                          ),
+                        ),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                      ),
+                      borderData: FlBorderData(
+                        show: true,
+                        border: Border.all(color: const Color(0xff37434d)),
+                      ),
+                      gridData: FlGridData(show: true),
+                    ),
+                  ),
+                )),
+
+            const SizedBox(
+              height: 12,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget leftTitles(double value, TitleMeta meta) {
+    const style = TextStyle(
+        color: Color(0xff7589a2),
+        fontWeight: FontWeight.bold,
+        fontSize: 12,
+        letterSpacing: 0);
+    String text;
+    if (value == 0) {
+      text = '1K';
+    } else if (value == 10) {
+      text = '5K';
+    } else if (value == 19) {
+      text = '10K';
+    } else {
+      return Container();
+    }
+    return SideTitleWidget(
+      fitInside: const SideTitleFitInsideData(
+          enabled: false,
+          axisPosition: 10,
+          parentAxisSize: 8,
+          distanceFromEdge: 0),
+      axisSide: meta.axisSide,
+      space: 0,
+      child: Text(
+        text,
+        style: style,
+        softWrap: false,
+        maxLines: 1,
+        overflow: TextOverflow.visible,
+      ),
+    );
+  }
+}

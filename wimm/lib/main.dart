@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:wimm/screens/mainscreen.dart';
 import 'package:provider/provider.dart';
 import 'utils/local_providers.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [

@@ -13,6 +13,12 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
+buildscript {
+    dependencies {
+        classpath 'com.google.gms:google-services:latest_version'
+    }
+}
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

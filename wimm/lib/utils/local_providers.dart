@@ -47,13 +47,13 @@ class ScreenSizeProvider with ChangeNotifier {
       fontWeight: _fontWeightLight,
     );
 
-    _textStyleMedium = GoogleFonts.roboto(
+    _textStyleMedium = GoogleFonts.raleway(
       fontSize: _fontSizeMedium,
       fontWeight: _fontWeightRegular,
     );
-    _textStyleLarge = GoogleFonts.poppins(
+    _textStyleLarge = GoogleFonts.raleway(
       fontSize: _fontSizeLarge,
-      fontWeight: _fontWeightBold,
+      fontWeight: _fontWeightRegular,
     );
 
     // Additional font variants
@@ -72,15 +72,15 @@ class ScreenSizeProvider with ChangeNotifier {
       fontWeight: _fontWeightBold,
       fontStyle: FontStyle.italic,
     );
-    _textStyleSmallBold = GoogleFonts.roboto(
+    _textStyleSmallBold = GoogleFonts.raleway(
       fontSize: _fontSizeSmall,
       fontWeight: FontWeight.bold,
     );
-    _textStyleMediumBold = GoogleFonts.roboto(
+    _textStyleMediumBold = GoogleFonts.raleway(
       fontSize: _fontSizeMedium,
       fontWeight: FontWeight.bold,
     );
-    _textStyleLargeBold = GoogleFonts.poppins(
+    _textStyleLargeBold = GoogleFonts.raleway(
       fontSize: _fontSizeLarge,
       fontWeight: FontWeight.bold,
     );
